@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Hello Test</title>
+    </head>
+    <body>
+      <script type="text/javascript">
+        function Person(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+
+        Person.prototype.getName = function() {
+          console.log('name', this.name);
+          return this;
+        }
+
+        Person.prototype.getAge = function() {
+          console.log('age', this.age);
+          return this;
+        }
+
+        var popo = new Person('popo', 21);
+
+
+        popo.getName().getAge();
+      </script>
+    </body>
+  </html>

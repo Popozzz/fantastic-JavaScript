@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Hello Test</title>
+    </head>
+    <body>
+      <script type="text/javascript">
+        
+        var wrap = {
+          refresh: function(fn) {
+            var count = 0;
+
+            return function(...args) {
+              count ++;
+              var selfCount = count;
+              var _arguments = arguments;
+
+              function isNew() {
+                return count === selfCount;
+              }
+
+              fn(...args, isNew);
+            }
+          }
+        }
+
+        function request(num, time, isNew) {
+          setTimeout(() => {
+            if (isNew()) {
+              console.log('num', num)
+            }
+          }, time)
+        }
+
+        var handler = wrap.refresh(function(num, time, isNew) {
+          setTimeout(() => {
+            if (isNew()) {
+              console.log('num', num)
+            }
+          }, time)
+        });
+
+        handler(1, 600);
+        handler(2, 300);
+        handler(9, 100);
+      </script>
+    </body>
+  </html>

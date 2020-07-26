@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Hello Test</title>
+    </head>
+    <body>
+      <script type="text/javascript">
+      function SelfPromise(execute) {
+        var self = this;
+
+        this.status = 'pending';
+        this.successCallback = [];
+        this.failCallback = [];
+        this.preOrder = 0;
+        this.order = 0;
+
+        function handleResult(result) {
+          if (!(result instanceof SelfPromise)) {
+              result = SelfPromise.reslove(result);
+            }
+
+            result.successCallback = self.successCallback;
+            result.failCallback = self.failCallback;
+            result.preOrder = self.preOrder;
+            result.order = self.order;
+        }
+
+        function resolve(val) {
+          setTimeout(function() {
+            self.status = 'resolve';
+
+            var i = 0;
+            while(i < self.successCallback.length) {
+              if (self.successCallback[i].order > self.preOrder) {
+                var cb = self.successCallback[i];
+                var result = cb(val);
+
+                self.preOrder = cb.order;
+                handleResult(result);
+                break;
+              }
+
+              i ++;
+            }
+          });
+        }
+
+        function reject(error) {
+          setTimeout(function() {
+            self.status = 'reject';
+
+            var i = 0;
+            while (i < self.failCallback.length) {
+              if (self.failCallback[i].order > self.preOrder) {
+                var cb = self.failCallback.shift();
+                var result = cb(error);
+
+                self.preOrder = cb.order;
+                handleResult(result);
+
+                break;
+              }
+              i ++;
+            }
+          });
+        }
+
+        execute(resolve, reject);
+      }
+
+      SelfPromise.reslove = function(val) {
+        return new SelfPromise(function(resolve, reject) {
+          resolve(val);
+        });
+      }
+
+      SelfPromise.reject = function(error) {
+        return new SelfPromise(function(resolve, reject) {
+          reject(error);
+        });
+      }
+
+      SelfPromise.prototype.then = function(fn, val) {
+        fn.order = this.order ++;
+        this.successCallback.push(fn);
+        return this;
+      }
+
+      SelfPromise.prototype.catch = function(fn, error) {
+        fn.order = this.order ++;
+        this.failCallback.push(fn);
+        return this;
+      }
+
+      var test = new SelfPromise(function(resolve, reject) {
+        console.log('constructor----');
+        reject(1);
+      }).then(function(val) {
+        console.log('then1-----', val);
+        return 2;
+      })
+      // .catch(function(error) {
+      //   console.log('catch1-----', error);
+      //   return SelfPromise.reject(2);
+      // })
+      .then(function(val) {
+        console.log('then2-----', val);
+      }).catch(function(error) {
+        console.log('catch2----', error);
+      });
+
+      console.log('test', test)
+
+      </script>
+    </body>
+  </html>
