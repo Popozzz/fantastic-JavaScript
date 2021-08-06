@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./promise.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      new LikePromise((resolve, reject) => {
+        resolve("hhh");
+      })
+        .then((res) => {
+          console.log("res1", res);
+          return LikePromise.resolve("111");
+        })
+        .then((res) => {
+          console.log("res2", res);
+          return "222";
+          //return LikePromise.reject("222");
+        })
+        .catch((err) => {
+          console.log("err1", err);
+
+          return 123;
+        })
+        .then((res) => {
+          console.log("res3", res);
+        });
+    </script>
+  </body>
+</html>

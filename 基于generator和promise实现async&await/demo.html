@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function requestMember() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject({
+              name: "mike",
+            });
+          }, 3000);
+        });
+      }
+
+      function setMember(member) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(member);
+          }, 3000);
+        });
+      }
+
+      function getMember(params) {
+        return asyncToGenerator(function* () {
+          var result1 = yield requestMember();
+          console.log("result1", result1);
+
+          var result2 = yield setMember({
+            name: "popo",
+          });
+          console.log("result2", result2);
+        });
+      }
+
+      console.log("getMember", getMember());
+    </script>
+  </body>
+</html>

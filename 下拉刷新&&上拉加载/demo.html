@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./scroll.js"></script>
+  </head>
+  <style>
+    .container {
+      height: 80vh;
+      background-color: bisque;
+      overflow: scroll;
+    }
+
+    .big-box {
+      height: 200vh;
+    }
+
+    .box {
+      height: 100px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="big-box"></div>
+    </div>
+    <script type="text/javascript">
+      var container = new Container(
+        document.getElementsByClassName("container")[0]
+      );
+      var position = 0;
+      var timer = null;
+
+      container.init();
+
+      function onReachBottom() {
+        console.log("触底了----");
+        var element = document.createElement("div");
+        element.innerText = "popo";
+        element.className = "box";
+        container.containerDom.appendChild(element);
+
+        setTimeout(() => {
+          container.updateScrollHeight();
+        }, 0);
+      }
+
+      // 防抖
+      container.addScrollEvent(function (event) {
+        if (timer) {
+          clearTimeout(timer);
+        }
+
+        timer = setTimeout(function () {
+          var scrollTop = container.getScrollTop();
+          position = scrollTop + container.containerHeight; // 当前位置 = 滚动距离 + 容器高度
+          var minus = container.scrollHeight - position;
+          if (minus <= container.distance) {
+            onReachBottom();
+          }
+          console.log("getScrollTop", position, scrollTop);
+        }, 300);
+      });
+    </script>
+  </body>
+</html>

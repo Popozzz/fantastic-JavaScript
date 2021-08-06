@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./request.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      (function () {
+        function getList(time) {
+          return request("./a.json", time);
+        }
+
+        function getAllList(time) {
+          getList(time)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log("err", err);
+            });
+        }
+
+        // 第一次请求比第二次请求早到达
+        // getAllList(1000);
+        // getAllList(2000);
+
+        // 第一次请求比第二次请求晚到达
+        getAllList(3000);
+        getAllList(2000);
+      })();
+    </script>
+  </body>
+</html>

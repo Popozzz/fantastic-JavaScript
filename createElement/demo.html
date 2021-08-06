@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./createElement.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var tree = [
+        {
+          key: "div",
+          content: "123",
+          attr: {
+            class: "abc",
+            style: "",
+          },
+          children: [
+            {
+              key: "a",
+              content: "xixi",
+            },
+          ],
+        },
+        {
+          key: "p",
+          content: "222",
+        },
+      ];
+
+      var result = createElement(tree);
+      document.html = result;
+
+      console.log("result", result);
+    </script>
+  </body>
+</html>
