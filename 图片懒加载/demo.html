@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./tool.js"></script>
+  </head>
+  <style lang="css">
+    .content {
+      width: 40%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .img {
+      margin-top: 30px;
+      width: 100%;
+      height: 300px;
+      background: #eeeeee;
+    }
+  </style>
+  <body>
+    <div class="content">
+      <img
+        class="img"
+        data-src="https://tenfei04.cfp.cn/creative/vcg/800/new/VCG41N1040981748.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://alifei03.cfp.cn/creative/vcg/800/new/VCG41N1191901650.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://alifei04.cfp.cn/creative/vcg/800/new/VCG41N1041105654.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://tenfei01.cfp.cn/creative/vcg/800/new/VCG41N1191901650.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://tenfei05.cfp.cn/creative/vcg/800/new/VCG41N1064599662.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://tenfei04.cfp.cn/creative/vcg/800/new/VCG41N1091705042.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://alifei05.cfp.cn/creative/vcg/800/new/VCG41N1140935014.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://tenfei04.cfp.cn/creative/vcg/800/new/VCG41N1140935049.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://tenfei02.cfp.cn/creative/vcg/800/new/VCG41N1158840778.jpg"
+        src="./loading.jpg"
+      />
+      <img
+        class="img"
+        data-src="https://tenfei03.cfp.cn/creative/vcg/800/new/VCG41N1064599802.jpg"
+        src="./loading.jpg"
+      />
+    </div>
+
+    <script>
+      var imgEl = document.querySelectorAll(".content .img");
+      observer(imgEl);
+    </script>
+  </body>
+</html>

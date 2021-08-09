@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Hello Test</title>
-    </head>
-    <body>
-      <script type="text/javascript">
-        function add(a) {
-          return function(b) {
-            return a + b;
-          }
-        }
+<html>
+  <head>
+    <title>Hello Test</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function add(a) {
+        return function (b) {
+          return a + b;
+        };
+      }
 
-        var sum = add(2)(4);
-        
-        console.log('sum', sum);
-      </script>
-    </body>
-  </html>
+      var sum = add(2)(4);
+
+      console.log("sum", sum);
+    </script>
+  </body>
+</html>
