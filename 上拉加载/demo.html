@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./tool.js"></script>
+  </head>
+  <style>
+    .container {
+      width: 60%;
+      height: 60vh;
+      background-color: bisque;
+      overflow: scroll;
+    }
+
+    .page {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      border-bottom: 4px solid #fff;
+      background: pink;
+    }
+
+    .footer {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eeeeee;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="page">List 1</div>
+      <div class="footer">加载中...</div>
+    </div>
+    <script type="text/javascript">
+      (function () {
+        var container = document.querySelector(".container");
+        var footer = document.querySelector(".container .footer");
+        var count = 1;
+
+        var Page = new ScrollContainer(footer);
+        Page.addScrollBottomEvent(() => {
+          setTimeout(() => {
+            console.log("触底了···");
+            count++;
+            if (count > 6) {
+              footer.innerHTML = "- 已经到底啦 -";
+              return;
+            }
+            var box = document.createElement("div");
+            box.innerHTML = "List " + count;
+            box.className = "page";
+
+            container.insertBefore(box, footer);
+          }, 1000);
+        });
+      })();
+    </script>
+  </body>
+</html>
