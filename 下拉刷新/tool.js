@@ -6,10 +6,11 @@ function ScrollContainer(containerEl) {
 ScrollContainer.prototype.init = function (containerEl) {
   let isTop = false,
     startY = 0,
-    endY = 0;
+    endY = 0,
+    topDistance = 100;
   let pulling = false;
 
-  // 添加触摸事件
+  // 开始触摸事件
   containerEl.addEventListener("touchstart", (e) => {
     if (pulling) {
       e.preventDefault();
@@ -25,6 +26,7 @@ ScrollContainer.prototype.init = function (containerEl) {
     }
   });
 
+  // 触摸移动事件
   containerEl.addEventListener("touchmove", (e) => {
     if (pulling) {
       e.preventDefault();
@@ -44,9 +46,13 @@ ScrollContainer.prototype.init = function (containerEl) {
       return;
     }
 
-    containerEl.style.transform = `translateY(${Math.min(100, distance)}px)`;
+    containerEl.style.transform = `translateY(${Math.min(
+      topDistance,
+      distance
+    )}px)`;
   });
 
+  // 停止触摸事件
   containerEl.addEventListener("touchend", (e) => {
     if (pulling) {
       e.preventDefault();
@@ -58,6 +64,14 @@ ScrollContainer.prototype.init = function (containerEl) {
     if (touch) {
       endY = touch.pageY;
     }
+
+    const distance = endY - startY;
+    if (distance < topDistance / 2) {
+      containerEl.style.transform = "translateY(0)";
+      return;
+    }
+
+    containerEl.style.transform = `translateY(${topDistance}px)`;
 
     pulling = true;
 

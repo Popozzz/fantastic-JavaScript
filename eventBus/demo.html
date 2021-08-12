@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Test</title>
+    <script src="./tool.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      (function () {
+        var bus = new Bus();
+        function getName(name) {
+          console.log("getName:", name);
+        }
+
+        bus.$on("getName", getName);
+        bus.$on("getAge", (age) => {
+          console.log("getAge:", age);
+        });
+
+        bus.$emit("getName", "popo");
+        bus.$emit("getAge", 22);
+
+        bus.$off("getName", getName);
+        bus.$emit("getName", "popo");
+      })();
+    </script>
+  </body>
+</html>
